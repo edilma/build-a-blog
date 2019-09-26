@@ -3,3 +3,13 @@ h1{
     font-weight: bold;
     color: darkgreen;
 }
+
+textarea{
+    height: 250em;
+    width: 80%;
+    font-family: Arial, Helvetica, sans-serif;
+
+
+}
+
+

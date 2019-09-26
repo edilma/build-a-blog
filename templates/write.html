@@ -6,10 +6,18 @@ My Blog
 
 
 {% block content %}
-
-    <h1>Viva Mi Blog</h1>
-
-
+    <form name="blogPost" method ="POST">
+        <div class="title">
+        <!--Title Goes Here-->
+            <label for="title" >Title: </label>
+            <input id="title" name="title" type="text" />
+        </div>
+        <hr/>
+        <div>
+            <h2>Write Blog Post Here:</h2>
+            <textarea id="content"   name="content" placeholder="Write your blog content here"></textarea>
+        </div>
+</form>
 
 
 {% endblock content %}
