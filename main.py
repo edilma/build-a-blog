@@ -16,9 +16,7 @@ class Post(db.Model):
     def __init__(self,title,content):
         self.title = title
         self.content= content
-        
-
-
+    
  
 def validatePost(blog_name,blog_content):
     title= blog_name
@@ -31,14 +29,14 @@ def validatePost(blog_name,blog_content):
         return "ok"
 
 #first time they go to the website
-@app.route('/', methods=["GET"])
+@app.route('/blog', methods=["GET"])
 def index():
     posts = Post.query.all()
     return render_template('post_template.html',  posts=posts) #add this variable and iterate 
 
 
 #after they fill in the form and POST it.
-@app.route('/', methods=['POST'])
+@app.route('/newpost', methods=['POST'])
 def GetContent():
     blog_name= request.form['title']
     blog_content = request.form['content']
@@ -52,15 +50,10 @@ def GetContent():
         flash(isValid) #todo fix flash
     #todo load current posts
     posts = Post.query.all()
-    return render_template('post_template.html',  posts=posts) #add this variable and iterate 
+    return redirect('/blog',id=id)
+    #return render_template('post_template.html',  posts=posts) #add this variable and iterate 
 
     
-    
-
-
-
-
-
 
 
 if __name__ == "__main__":
