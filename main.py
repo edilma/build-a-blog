@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -6,38 +6,58 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:edilma@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
+app.secret_key = 'lily'
 
-class BlogPost(db.Model):
+class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     content = db.Column(db.String(4294967295))
-
+    
     def __init__(self,title,content):
         self.title = title
         self.content= content
+        
 
 
+ 
+def validatePost(blog_name,blog_content):
+    title= blog_name
+    content = blog_content
+    if title=="":
+        return "Title is Required"
+    if content=="":
+        return "Content is required"
+    else:
+        return "ok"
 
-
-@app.route('/', methods=["POST", "GET"])
+#first time they go to the website
+@app.route('/', methods=["GET"])
 def index():
-    return render_template('write.html',blogPost['',''])
+    posts = Post.query.all()
+    return render_template('post_template.html',  posts=posts) #add this variable and iterate 
 
 
-    
-
+#after they fill in the form and POST it.
 @app.route('/', methods=['POST'])
 def GetContent():
-    title= request.form('title')
-    content = request.form('content')
-    blogPost = [title,content]
-    error = validatePost(blogPost)
-    if error!="":
-        #TODO  validar la information from the form of the blog
-        return render_template('write.html')
-    else:
-        #TODO post the info in the database
-        return render_template('write.html')
+    blog_name= request.form['title']
+    blog_content = request.form['content']
+    isValid = validatePost (blog_name,blog_content)
+    if isValid=="ok":
+        post = Post(blog_name,blog_content)
+        db.session.add(post)
+        db.session.commit()
+        #print (blogPost)
+    else: 
+        flash(isValid) #todo fix flash
+    #todo load current posts
+    posts = Post.query.all()
+    return render_template('post_template.html',  posts=posts) #add this variable and iterate 
+
+    
+    
+
+
 
 
 

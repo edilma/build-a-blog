@@ -21,6 +21,12 @@ My Blog
             <input type="submit" name="submit"  value="Add A New Post">
         </div>
 </form>
+<div>
+{% for post in posts %}
+<h1>{{ post.title }} </h1>
+<p>{{post.content}}</p>
 
+{% endfor %}
+</div>
 
 {% endblock content %}
