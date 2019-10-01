@@ -1,7 +1,10 @@
 h1{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    color: darkgreen;
+    font-size: 3rem ;
+    color: rgb(7, 7, 7);
+    text-align: center;
+
 }
 
 textarea{
@@ -11,4 +14,16 @@ textarea{
 
 }
 
+.link{
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 2rem ;
+    color: blue; 
+    text-align: center;  
+}
+
+span {
+    padding-inline: 4em;
+}
 

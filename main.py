@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, flash, session
+from flask import Flask, request, redirect, render_template, flash, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -24,14 +24,26 @@ class Post(db.Model):
 
 @app.route('/', methods=["GET"])
 def index():
+    return redirect("/blog")
+
+
+
+@app.route('/newpost', methods=["GET"])
+def create():
     #posts = Post.query.all()
     #return render_template('posts.html', title=title, content=content)
-    return render_template('write.html')
+    return render_template('newpost.html')
 
-@app.route('/blog', methods=["POST"])
+
+@app.route('/blog', methods=["GET"])
 def viewPosts():
-    posts = Post.query.all()
-    return render_template('posts.html', posts=posts)
+    id =  request.args.get('id')
+    if id:
+        posts = Post.query.filter_by(id=id).all()
+    else:
+        posts = Post.query.all()
+
+    return render_template('/posts.html',posts=posts)
 
 
     
@@ -56,7 +68,10 @@ def GetContent():
         db.session.add(new_post)
         db.session.commit()
         posts = Post.query.all()
-        return render_template('/posts.html', posts=posts)
+        return render_template('posts.html', posts=posts)
+        
+        
+
     
     
     

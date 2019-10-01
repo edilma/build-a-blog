@@ -6,8 +6,10 @@ My Blog Posts
 
 {% block content %}
     {% for post in posts %}
+    
+    <a class="link" href="/blog?id={{post.id}}">{{post.title}}</a>
    
-    {{post.title}}
+    
     <p>        
         {{post.content}}
     </p>
