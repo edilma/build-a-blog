@@ -20,12 +20,12 @@ My Blog
         <div class="title">
         <!--Title Goes Here-->
             <label for="title" >Title for new blog: </label><br>
-            <input id="title" name="title" type="text" />
+            <input id="title" name="title" type="text" value="{{title}}"/>
         </div>
         
         <div>
             <label for="content">Your new blog:</label><br>
-            <textarea id="content"   name="content" placeholder="Write your blog content here"></textarea>
+            <input type="text"  id="content"   name="content" value='{{content}}' ></textarea>
             <br>
             <input type="submit" value="Add New Post">
         </div>

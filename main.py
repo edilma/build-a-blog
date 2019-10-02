@@ -46,7 +46,6 @@ def viewPosts():
     return render_template('/posts.html',posts=posts)
 
 
-    
 
 @app.route('/', methods=['POST'])
 def GetContent():
@@ -56,19 +55,22 @@ def GetContent():
     if not title:
         flash ("Title can NOT be empty")
         error="error"
-        return render_template('write.html')
+        return render_template('write.html', content=content)
     if not content:
         flash ("Content can NOT be empty")
-     #   error='error'
-        return render_template('write.html')
+    #   error='error'
+        return render_template('write.html',title=title)
         
     #what to do if there is an error
     else:
         new_post = Post(title,content)
         db.session.add(new_post)
         db.session.commit()
-        posts = Post.query.all()
-        return render_template('posts.html', posts=posts)
+        #posts = Post.query.all()
+        #post_id = new_post.id 
+        posts = Post.query.filter_by(id=new_post.id).first()
+        
+        return render_template('blog_post.html',posts=posts)
         
         
 
